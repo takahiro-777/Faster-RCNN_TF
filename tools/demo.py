@@ -85,7 +85,10 @@ def demo(sess, net, image_name):
         vis_detections(im, cls, dets, ax, thresh=CONF_THRESH)
 
 def parse_args():
-    """Parse input arguments."""
+    """
+    Parse input arguments.
+    If you want to check usage, execute `python ./tools/demo.py --help`.
+    """
     parser = argparse.ArgumentParser(description='Faster R-CNN demo')
     parser.add_argument('--gpu', dest='gpu_id', help='GPU device id to use [0]',
                         default=0, type=int)
@@ -111,7 +114,9 @@ if __name__ == '__main__':
     # init session
     sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
     # load network
+    print("start Loading Model")
     net = get_network(args.demo_net)
+    print("finished Loading Model")
     # load model
     saver = tf.train.Saver(write_version=tf.train.SaverDef.V1)
     saver.restore(sess, args.model)
