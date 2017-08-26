@@ -10,6 +10,15 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
 
 2. Python packages you might not have: `cython`, `python-opencv`, `easydict`
 
+```Shell
+$ cd $FRCN_ROOT
+$ pip install -r requirements.txt
+
+※
+If you got "RuntimeError: Python is not installed as a framework.", maybe you can resolve this problem by changing matplotlibrc.
+ref: http://qiita.com/katryo/items/918667f28301fdec89ba
+```
+
 ### Requirements: hardware
 
 1. For training the end-to-end version of Faster R-CNN with VGG16, 3G of GPU memory is sufficient (using CUDNN)
@@ -19,13 +28,13 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
 1. Clone the Faster R-CNN repository
   ```Shell
   # Make sure to clone with --recursive
-  git clone --recursive https://github.com/smallcorgi/Faster-RCNN_TF.git
+  $ git clone --recursive https://github.com/smallcorgi/Faster-RCNN_TF.git
   ```
 
 2. Build the Cython modules
     ```Shell
-    cd $FRCN_ROOT/lib
-    make
+    $ cd $FRCN_ROOT/lib
+    $ make
     ```
 
 ### Demo
@@ -33,6 +42,13 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
 *After successfully completing [basic installation](#installation-sufficient-for-the-demo)*, you'll be ready to run the demo.
 
 Download model training on PASCAL VOC 2007  [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbZ0EzeUlHcGFIVWM) [[Dropbox]](https://www.dropbox.com/s/cfz3blmtmwj6bdh/VGGnet_fast_rcnn_iter_70000.ckpt?dl=0)
+
+```Shell
+$ cd $FRCN_ROOT
+$ mkdir model
+$ cd model
+$ wget https://www.dropbox.com/s/cfz3blmtmwj6bdh/VGGnet_fast_rcnn_iter_70000.ckpt
+```
 
 To run the demo
 ```Shell
@@ -73,11 +89,11 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
     cd $FRCN_ROOT/data
     ln -s $VOCdevkit VOCdevkit2007
     ```
-    
+
 5. Download pre-trained ImageNet models
 
    Download the pre-trained ImageNet models [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) [[Dropbox]](https://www.dropbox.com/s/po2kzdhdgl4ix55/VGG_imagenet.npy?dl=0)
-   
+
    	```Shell
     mv VGG_imagenet.npy $FRCN_ROOT/data/pretrain_model/VGG_imagenet.npy
     ```
@@ -89,7 +105,7 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 	```
   DEVICE is either cpu/gpu
 
-### The result of testing on PASCAL VOC 2007 
+### The result of testing on PASCAL VOC 2007
 
 | Classes       | AP     |
 |-------------|--------|
@@ -120,4 +136,3 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 [Faster R-CNN caffe version](https://github.com/rbgirshick/py-faster-rcnn)
 
 [A tensorflow implementation of SubCNN (working progress)](https://github.com/yuxng/SubCNN_TF)
-
