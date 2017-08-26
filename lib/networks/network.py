@@ -93,6 +93,13 @@ class Network(object):
 
     @layer
     def conv(self, input, k_h, k_w, c_o, s_h, s_w, name, relu=True, padding=DEFAULT_PADDING, group=1, trainable=True):
+        """
+        k_h: height of stride_filter
+        k_w: width of convolution_filter
+        c_o: number of channels
+        s_h: height of stride_filter
+        s_w: width of stride_filter
+        """
         self.validate_padding(padding)
         c_i = input.get_shape()[-1]
         assert c_i%group==0
@@ -188,13 +195,13 @@ class Network(object):
 
             rois,labels,bbox_targets,bbox_inside_weights,bbox_outside_weights = tf.py_func(proposal_target_layer_py,[input[0],input[1],classes],[tf.float32,tf.float32,tf.float32,tf.float32,tf.float32])
 
-            rois = tf.reshape(rois,[-1,5] , name = 'rois') 
+            rois = tf.reshape(rois,[-1,5] , name = 'rois')
             labels = tf.convert_to_tensor(tf.cast(labels,tf.int32), name = 'labels')
             bbox_targets = tf.convert_to_tensor(bbox_targets, name = 'bbox_targets')
             bbox_inside_weights = tf.convert_to_tensor(bbox_inside_weights, name = 'bbox_inside_weights')
             bbox_outside_weights = tf.convert_to_tensor(bbox_outside_weights, name = 'bbox_outside_weights')
 
-           
+
             return rois, labels, bbox_targets, bbox_inside_weights, bbox_outside_weights
 
 

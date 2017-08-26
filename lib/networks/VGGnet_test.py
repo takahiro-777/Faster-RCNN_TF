@@ -17,6 +17,7 @@ class VGGnet_test(Network):
         self.setup()
 
     def setup(self):
+        # using Network Class's method(feed, conv, max_pool etc)
         (self.feed('data')
              .conv(3, 3, 64, 1, 1, name='conv1_1', trainable=False)
              .conv(3, 3, 64, 1, 1, name='conv1_2', trainable=False)

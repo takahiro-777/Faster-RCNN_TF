@@ -117,6 +117,10 @@ if __name__ == '__main__':
     print("start Loading Model")
     net = get_network(args.demo_net)
     print("finished Loading Model")
+    print(net.im_info)
+    print(net.keep_prob)
+    print(net.trainable)
+    print(net.data)
     # load model
     saver = tf.train.Saver(write_version=tf.train.SaverDef.V1)
     saver.restore(sess, args.model)
