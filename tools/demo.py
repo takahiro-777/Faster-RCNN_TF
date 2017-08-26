@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
     if args.model == ' ':
         raise IOError(('Error: Model not found.\n'))
-        
+
     # init session
     sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
     # load network
@@ -115,7 +115,7 @@ if __name__ == '__main__':
     # load model
     saver = tf.train.Saver(write_version=tf.train.SaverDef.V1)
     saver.restore(sess, args.model)
-   
+
     #sess.run(tf.initialize_all_variables())
 
     print '\n\nLoaded network {:s}'.format(args.model)
@@ -125,8 +125,9 @@ if __name__ == '__main__':
     for i in xrange(2):
         _, _= im_detect(sess, net, im)
 
-    im_names = ['000456.jpg', '000542.jpg', '001150.jpg',
-                '001763.jpg', '004545.jpg']
+    #im_names = ['000456.jpg', '000542.jpg', '001150.jpg',
+    #            '001763.jpg', '004545.jpg']
+    im_names = ['000456.jpg']
 
 
     for im_name in im_names:
@@ -135,4 +136,3 @@ if __name__ == '__main__':
         demo(sess, net, im_name)
 
     plt.show()
-
