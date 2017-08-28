@@ -62,7 +62,11 @@ def demo(sess, net, image_name):
     # Detect all object classes and regress object bounds
     timer = Timer()
     timer.tic()
+    print("demo_function")
+    print(im.shape)
     scores, boxes = im_detect(sess, net, im)
+    print(scores.shape)
+    print(boxes.shape)
     timer.toc()
     print ('Detection took {:.3f}s for '
            '{:d} object proposals').format(timer.total_time, boxes.shape[0])
@@ -74,13 +78,17 @@ def demo(sess, net, image_name):
 
     CONF_THRESH = 0.8
     NMS_THRESH = 0.3
-    for cls_ind, cls in enumerate(CLASSES[1:]):
+    for cls_ind, cls in enumerate(CLASSES[1:]):  #enumerate(array) -> index(0,1,2,...), array(array[0], array[1], ...)
         cls_ind += 1 # because we skipped background
         cls_boxes = boxes[:, 4*cls_ind:4*(cls_ind + 1)]
         cls_scores = scores[:, cls_ind]
         dets = np.hstack((cls_boxes,
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
+        if cls_ind == 1:
+            print(cls_scores)
+            print(dets.shape)
+            print(keep)
         dets = dets[keep, :]
         vis_detections(im, cls, dets, ax, thresh=CONF_THRESH)
 
@@ -121,6 +129,7 @@ if __name__ == '__main__':
     print(net.keep_prob)
     print(net.trainable)
     print(net.data)
+    #print(net.conv5_3)
     # load model
     saver = tf.train.Saver(write_version=tf.train.SaverDef.V1)
     saver.restore(sess, args.model)

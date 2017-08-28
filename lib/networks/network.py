@@ -94,7 +94,7 @@ class Network(object):
     @layer
     def conv(self, input, k_h, k_w, c_o, s_h, s_w, name, relu=True, padding=DEFAULT_PADDING, group=1, trainable=True):
         """
-        k_h: height of stride_filter
+        k_h: height of convolution_filter
         k_w: width of convolution_filter
         c_o: number of channels
         s_h: height of stride_filter
@@ -130,6 +130,12 @@ class Network(object):
 
     @layer
     def max_pool(self, input, k_h, k_w, s_h, s_w, name, padding=DEFAULT_PADDING):
+        """
+        k_h: height of filter
+        k_w: width of filter
+        s_h: height of stride
+        s_w: width of stride
+        """
         self.validate_padding(padding)
         return tf.nn.max_pool(input,
                               ksize=[1, k_h, k_w, 1],
@@ -208,6 +214,8 @@ class Network(object):
     @layer
     def reshape_layer(self, input, d,name):
         input_shape = tf.shape(input)
+        print("reshape_layer")
+        print(input_shape)
         if name == 'rpn_cls_prob_reshape':
              return tf.transpose(tf.reshape(tf.transpose(input,[0,3,1,2]),[input_shape[0],
                     int(d),tf.cast(tf.cast(input_shape[1],tf.float32)/tf.cast(d,tf.float32)*tf.cast(input_shape[3],tf.float32),tf.int32),input_shape[2]]),[0,2,3,1],name=name)
@@ -269,6 +277,7 @@ class Network(object):
     @layer
     def softmax(self, input, name):
         input_shape = tf.shape(input)
+        print(input_shape)
         if name == 'rpn_cls_prob':
             return tf.reshape(tf.nn.softmax(tf.reshape(input,[-1,input_shape[3]])),[-1,input_shape[1],input_shape[2],input_shape[3]],name=name)
         else:

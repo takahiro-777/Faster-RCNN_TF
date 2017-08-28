@@ -5,6 +5,7 @@ n_classes = 21
 _feat_stride = [16,]
 anchor_scales = [8, 16, 32]
 print("Loading VGGnet_test model")
+print(len(anchor_scales)*3*2)
 
 class VGGnet_test(Network):
     def __init__(self, trainable=True):
@@ -58,7 +59,7 @@ class VGGnet_test(Network):
              .roi_pool(7, 7, 1.0/16, name='pool_5')
              .fc(4096, name='fc6')
              .fc(4096, name='fc7')
-             .fc(n_classes, relu=False, name='cls_score')
+             .fc(n_classes, relu=False, name='cls_score')   #n_classes = 21(difined upside of this script)
              .softmax(name='cls_prob'))
 
         (self.feed('fc7')
