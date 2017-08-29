@@ -84,7 +84,7 @@ def demo(sess, net, image_name):
         cls_scores = scores[:, cls_ind]
         dets = np.hstack((cls_boxes,
                           cls_scores[:, np.newaxis])).astype(np.float32)
-        keep = nms(dets, NMS_THRESH)
+        keep = nms(dets, NMS_THRESH)   #from fast_rcnn.nms_wrapper import nms
         if cls_ind == 1:
             print(cls_scores)
             print(dets.shape)
