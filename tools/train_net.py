@@ -67,6 +67,7 @@ if __name__ == '__main__':
     print('Called with args:')
     print(args)
 
+    # import configure_infomation from config_file
     if args.cfg_file is not None:
         cfg_from_file(args.cfg_file)
     if args.set_cfgs is not None:

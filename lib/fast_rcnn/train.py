@@ -121,7 +121,7 @@ class SolverWrapper(object):
 
         rpn_smooth_l1 = self._modified_smooth_l1(3.0, rpn_bbox_pred, rpn_bbox_targets, rpn_bbox_inside_weights, rpn_bbox_outside_weights)
         rpn_loss_box = tf.reduce_mean(tf.reduce_sum(rpn_smooth_l1, reduction_indices=[1, 2, 3]))
- 
+
         # R-CNN
         # classification loss
         cls_score = self.net.get_output('cls_score')
@@ -159,6 +159,8 @@ class SolverWrapper(object):
         for iter in range(max_iters):
             # get one batch
             blobs = data_layer.forward()
+            print("print blobs============")
+            print(blobs)
 
             # Make one SGD update
             feed_dict={self.net.data: blobs['data'], self.net.im_info: blobs['im_info'], self.net.keep_prob: 0.5, \
